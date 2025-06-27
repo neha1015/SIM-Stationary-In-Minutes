@@ -1,4 +1,3 @@
-// src/components/Navbar.js
 import React, { useState } from 'react';
 import '../styles/Navbar.css';
 
@@ -13,7 +12,7 @@ const Navbar = ({ setSection, handleLogout }) => {
   return (
     <nav className="navbar">
       <div className="nav-left">
-        <h2 className="logo">SIM</h2>
+        <img src="/simbg.png" alt="SIM Logo" className="logo-img" />
       </div>
 
       <ul className="nav-center">

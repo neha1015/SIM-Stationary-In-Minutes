@@ -1,5 +1,4 @@
-/* src/styles/Navbar.css */
-
+/* Navbar Container */
 .navbar {
   display: flex;
   align-items: center;
@@ -10,12 +9,28 @@
   font-family: Arial, sans-serif;
 }
 
-.nav-left .logo {
+/* Left: Logo + Title */
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-img {
+  height: 100px;
+  max-height: 100%;
+  object-fit: contain;
+  transform: scale(1.1);  /* scales up visually */
+}
+
+
+.logo-text {
   color: #1a73e8;
   font-weight: bold;
   font-size: 24px;
 }
 
+/* Center: Navigation */
 .nav-center {
   list-style: none;
   display: flex;
@@ -38,6 +53,7 @@
   padding-bottom: 4px;
 }
 
+/* Right: Logout */
 .nav-right .logout-btn {
   background-color: #e53935;
   color: white;

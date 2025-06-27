@@ -1,10 +1,19 @@
-// src/components/Login.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Login.css';
 
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
+  const [rememberEmail, setRememberEmail] = useState(false);
+
+  // Load remembered email on component mount
+  useEffect(() => {
+    const savedEmail = localStorage.getItem('rememberedEmail');
+    if (savedEmail) {
+      setEmail(savedEmail);
+      setRememberEmail(true);
+    }
+  }, []);
 
   const sendOtp = () => {
     if (!email.endsWith('@abes.ac.in')) {
@@ -20,14 +29,25 @@ const Login = ({ onLogin }) => {
       alert('Please enter OTP.');
       return;
     }
+
+    // Save or remove remembered email
+    if (rememberEmail) {
+      localStorage.setItem('rememberedEmail', email);
+    } else {
+      localStorage.removeItem('rememberedEmail');
+    }
+
     localStorage.setItem('userEmail', email);
-    onLogin(email); // Calls App.js
+    onLogin(email); // Callback to App.js
   };
 
   return (
     <div className="login-container">
       <div className="overlay">
         <form className="login-form" onSubmit={handleLogin}>
+          {/* Logo above heading */}
+          <img src="/sim.png" alt="SIM Logo" className="login-logo" />
+
           <h2>SIM Stationary</h2>
           <p className="sub-heading">ABES Engineering College</p>
 
@@ -38,6 +58,17 @@ const Login = ({ onLogin }) => {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
+
+          {/* Remember email checkbox */}
+          <div className="remember-email">
+            <input
+              type="checkbox"
+              id="rememberEmail"
+              checked={rememberEmail}
+              onChange={(e) => setRememberEmail(e.target.checked)}
+            />
+            <label htmlFor="rememberEmail">Remember my email on this device</label>
+          </div>
 
           <input
             type="text"

@@ -31,6 +31,14 @@
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
 
+.login-logo {
+  width: 100px;
+  height: auto;
+  margin-bottom: 10px;
+  object-fit: contain;
+}
+
+
 .login-form h2 {
   margin-bottom: 10px;
 }
@@ -65,5 +73,21 @@
   cursor: pointer;
   font-weight: bold;
 }
+.login-logo {
+  width: 80px;
+  height: auto;
+  margin-bottom: 10px;
+  object-fit: contain;
+}
+
+.remember-email {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  margin: 10px 0;
+  color: #444;
+}
+
 
 
