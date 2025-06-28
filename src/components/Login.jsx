@@ -42,7 +42,7 @@ const Login = ({ onLogin }) => {
     <div className="login-container">
       <div className="overlay">
         <form className="login-form" onSubmit={handleLogin}>
-          <img src="/sim.png" alt="SIM Logo" className="login-logo" />
+          <img src="/simbg.png" alt="SIM Logo" className="login-logo" />
           <h2>SIM Stationary</h2>
           <p className="sub-heading">ABES Engineering College</p>
 
