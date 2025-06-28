@@ -37,18 +37,57 @@
   border: 1px solid #ccc;
 }
 
-.right-preview {
+/* .right-preview {
   flex: 1;
   overflow-y: auto;
-  background-color: #fff;
+  background-color: #80b5ea;
   border-radius: 8px;
   padding: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+} */
+
+.right-preview {
+  flex: 1;
+  max-width: 800px;  
+  min-width: 500px;  
+  overflow-y: auto;
+  background-color: #95a8f3;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-left: auto; 
+  margin-right: auto; 
 }
+
 
 .pdf-placeholder {
   color: #aaa;
   font-style: italic;
   padding: 40px;
   text-align: center;
+}
+/* Hide raw text layer below PDF preview */
+.react-pdf__Page__textContent {
+  display: none !important;
+}
+.overlay-confirm {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.summary-modal {
+  background: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 450px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
 }

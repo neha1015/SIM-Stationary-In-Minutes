@@ -4,15 +4,12 @@ import './Login.css';
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
-  const [rememberEmail, setRememberEmail] = useState(false);
+  const [savedEmails, setSavedEmails] = useState([]);
 
-  // Load remembered email on component mount
   useEffect(() => {
-    const savedEmail = localStorage.getItem('rememberedEmail');
-    if (savedEmail) {
-      setEmail(savedEmail);
-      setRememberEmail(true);
-    }
+    // Load previously saved emails from localStorage
+    const stored = JSON.parse(localStorage.getItem('savedEmails')) || [];
+    setSavedEmails(stored);
   }, []);
 
   const sendOtp = () => {
@@ -20,55 +17,50 @@ const Login = ({ onLogin }) => {
       alert('Please enter your college email (e.g. name@abes.ac.in)');
       return;
     }
+
     alert(`OTP sent to ${email}`);
+
+    // Save the current email to suggestions
+    if (email.trim()) {
+      const updated = [...new Set([email, ...savedEmails])];
+      localStorage.setItem('savedEmails', JSON.stringify(updated));
+      setSavedEmails(updated);
+    }
   };
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (!otp) {
+    if (!otp.trim()) {
       alert('Please enter OTP.');
       return;
     }
 
-    // Save or remove remembered email
-    if (rememberEmail) {
-      localStorage.setItem('rememberedEmail', email);
-    } else {
-      localStorage.removeItem('rememberedEmail');
-    }
-
-    localStorage.setItem('userEmail', email);
-    onLogin(email); // Callback to App.js
+    onLogin(email);
   };
 
   return (
     <div className="login-container">
       <div className="overlay">
         <form className="login-form" onSubmit={handleLogin}>
-          {/* Logo above heading */}
           <img src="/sim.png" alt="SIM Logo" className="login-logo" />
-
           <h2>SIM Stationary</h2>
           <p className="sub-heading">ABES Engineering College</p>
 
+          {/* ✅ Email input with datalist */}
           <input
+            list="emails"
             type="email"
             placeholder="College Email ID"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            autoComplete="off"
             required
           />
-
-          {/* Remember email checkbox */}
-          <div className="remember-email">
-            <input
-              type="checkbox"
-              id="rememberEmail"
-              checked={rememberEmail}
-              onChange={(e) => setRememberEmail(e.target.checked)}
-            />
-            <label htmlFor="rememberEmail">Remember my email on this device</label>
-          </div>
+          <datalist id="emails">
+            {savedEmails.map((item, index) => (
+              <option key={index} value={item} />
+            ))}
+          </datalist>
 
           <input
             type="text"
