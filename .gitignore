@@ -34,6 +34,6 @@ dist-ssr/
 *.sln
 *.sw?
 
-# MacOS + Linux + Windows system files
+
 Thumbs.db
 ehthumbs.db

@@ -1,24 +1,28 @@
-/* src/styles/NewOrder.css */
-
 .new-order-container {
   display: flex;
-  gap: 20px;
-  padding: 20px;
-  height: calc(100vh - 80px); /* adjust based on navbar height */
-  box-sizing: border-box;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  padding: 30px;
+  height: calc(100vh - 80px);
+  background-color: #f8f9fb;
+  font-family: "Segoe UI", Tahoma, sans-serif;
 }
 
+
 .left-settings {
-  width: 300px;
-  background-color: #f1f5fb;
+  width: 280px;
+  background-color: #d4d7dd;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 10px;
   overflow-y: auto;
 }
 
 .left-settings h3 {
   margin-bottom: 10px;
-  color: #1a73e8;
+  color: #0c6be7;
+  font-size: 18px;
 }
 
 .left-settings label {
@@ -29,65 +33,165 @@
 
 .left-settings select,
 .left-settings input[type='number'],
+.left-settings input[type='text'],
 .left-settings input[type='file'] {
   width: 100%;
   padding: 6px;
   margin-top: 5px;
   border-radius: 4px;
-  border: 1px solid #ccc;
+  border: 1px solid #464699;
+  font-size: 14px;
 }
 
-/* .right-preview {
-  flex: 1;
-  overflow-y: auto;
-  background-color: #80b5ea;
+.confirm-btn {
+  background-color: #0b880d; /* Green */
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
   border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-} */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  margin-top: 15px;
+}
+
+.confirm-btn:hover {
+  background-color: #0f4512; /* Darker green */
+}
+
+.cancel-btn {
+  background-color: #e0e0e0; /* Soft gray */
+  color: #333;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cancel-btn:hover {
+  background-color: #d5d5d5;
+}
 
 .right-preview {
   flex: 1;
-  max-width: 800px;  
+  max-width: 650px;  
   min-width: 500px;  
   overflow-y: auto;
-  background-color: #95a8f3;
+  background-color: #dee5e0;
   border-radius: 8px;
   padding: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
   margin-left: auto; 
   margin-right: auto; 
 }
 
-
 .pdf-placeholder {
-  color: #aaa;
+  color: #130d0d;
   font-style: italic;
   padding: 40px;
   text-align: center;
 }
-/* Hide raw text layer below PDF preview */
+
 .react-pdf__Page__textContent {
   display: none !important;
 }
+
+/* Summary Modal Overlay */
 .overlay-confirm {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0,0,0,0.6);
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* dark overlay */
   display: flex;
-  align-items: center;
   justify-content: center;
-  z-index: 999;
+  align-items: center;
+  z-index: 1000;
 }
 
+/* Modal Box */
+/* .summary-modal {
+  background-color: #f4f4f4;
+  padding: 30px;
+  border-radius: 12px;
+  width: 400px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  animation: fadeIn 0.3s ease;
+} */
+
 .summary-modal {
-  background: #fff;
-  padding: 25px;
-  border-radius: 10px;
-  width: 90%;
-  max-width: 450px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  background: rgba(255, 255, 255, 0.3); /* More white = less see-through */
+  backdrop-filter: blur(18px);         /* Stronger blur */
+  -webkit-backdrop-filter: blur(18px); /* Safari support */
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 30px;
+  width: 400px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  color: #222;
+  animation: fadeIn 0.3s ease;
+}
+
+
+.summary-modal h3,
+.summary-modal ul,
+.summary-modal p,
+.order-details div,
+.order-details span {
+  color: #222;
+}
+
+/* Modal Heading */
+.summary-modal h3 {
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+/* File list */
+.summary-modal ul {
+  padding-left: 0;
+  list-style: none;
+  margin-bottom: 10px;
+  color: #222;
+  font-weight: 500;
+}
+
+/* Details Grid */
+.order-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 10px;
+  column-gap: 20px;
+  text-align: left;
+  font-size: 15px;
+  color: #333;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.order-details span {
+  font-weight: 600;
+  color: #444;
+}
+
+/* Button Row */
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+/* Optional: fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }

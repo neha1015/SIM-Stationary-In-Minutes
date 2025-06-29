@@ -31,7 +31,7 @@ const NewOrder = () => {
     const totalPages = Object.values(numPagesList).reduce((a, b) => a + b, 0);
     if (totalPages > 100) return 'Tomorrow';
     else if (totalPages > 30) return 'Today Evening';
-    return 'Within 2 hours';
+    return 'Within 30 minutes';
   };
 
   const calculateCost = () => {
@@ -105,7 +105,7 @@ const NewOrder = () => {
           <strong>Total Cost:</strong> ₹{calculateCost()}
         </div>
 
-        <button style={{ marginTop: '15px' }} onClick={() => setShowSummary(true)}>
+        <button className="confirm-btn" onClick={() => setShowSummary(true)}>
           Confirm Order
         </button>
       </div>
@@ -136,26 +136,30 @@ const NewOrder = () => {
         )}
       </div>
 
-      {/* Order Summary Modal (Fake inline) */}
+      {/* Order Summary Modal */}
       {showSummary && (
         <div className="overlay-confirm">
           <div className="summary-modal">
-            <h3>Confirm Your Order</h3>
+            <h3 className="modal-heading">Confirm Your Order</h3>
+
             <ul>
               {files.map((f, i) => (
                 <li key={i}>{f.name}</li>
               ))}
             </ul>
-            <p><strong>Copies:</strong> {copies}</p>
-            <p><strong>Print Type:</strong> {printType}</p>
-            <p><strong>Sides:</strong> {sides}</p>
-            <p><strong>Pages to Print:</strong> {pagesToPrint || 'All'}</p>
-            <p><strong>Estimated Delivery:</strong> {estimateDelivery()}</p>
-            <p><strong>Total Cost:</strong> ₹{calculateCost()}</p>
 
-            <div style={{ display: 'flex', gap: '10px', marginTop: '15px' }}>
-              <button onClick={handleConfirmOrder}>Place Order</button>
-              <button onClick={() => setShowSummary(false)}>Cancel</button>
+            <div className="order-details">
+              <div><span>Number of Copies:</span> {copies}</div>
+              <div><span>Print Type:</span> {printType}</div>
+              <div><span>Sides:</span> {sides}</div>
+              <div><span>Pages to Print:</span> {pagesToPrint || 'All'}</div>
+              <div><span>Estimated Delivery:</span> {estimateDelivery()}</div>
+              <div><span>Total Cost:</span> ₹{calculateCost()}</div>
+            </div>
+
+            <div className="modal-buttons">
+              <button className="confirm-btn" onClick={handleConfirmOrder}>Place Order</button>
+              <button className="cancel-btn" onClick={() => setShowSummary(false)}>Cancel</button>
             </div>
           </div>
         </div>

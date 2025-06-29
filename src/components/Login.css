@@ -20,8 +20,6 @@
   align-items: center;
   justify-content: center;
 }
-
-/* White Login Box */
 .login-form {
   background: #fff;
   padding: 18px 24px;
@@ -30,22 +28,33 @@
   max-width: 380px;
   text-align: center;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box; /* Add this */
+  overflow: hidden;       /* Prevent anything from overflowing */
 }
-
-/* Logo */
 .login-logo {
-  height: 140px;
-  max-height: 140px;
-  margin-bottom: 8px;
+  height: 180px;        /* or whatever looks good */
+  margin-bottom: 6px;   /* reduce vertical space */
   object-fit: contain;
 }
+
+.login-form h2 {
+  margin-top: -10px;     /* bring heading closer to logo */
+  margin-bottom: 0;
+}
+
+.login-form input {
+  box-sizing: border-box;
+}
+
 
 /* Heading */
 .login-form h2 {
   font-size: 22px;
   font-weight: bold;
-  margin: 4px 0;
-}
+  margin: 0;               /* removes extra gap */
+  margin-top: -50px;        /* pulls heading closer to logo */
+} */
+
 
 /* Subheading */
 .sub-heading {

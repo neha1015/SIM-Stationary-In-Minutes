@@ -3,13 +3,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #ffffff;
+  background-color: #eff0f5;
   padding: 6px 24px; /* Reduced top-bottom padding */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(32, 25, 25, 0.4);
   font-family: Arial, sans-serif;
   height: 70px; /* Fixed height to prevent stretching */
 }
-
 /* Left: Logo + Title */
 .nav-left {
   display: flex;
@@ -18,12 +17,13 @@
 }
 
 .logo-img {
-  height: 150px; /* Reduced logo height */
+  height: 180px; /* Reduced logo height */
   object-fit: contain;
 }
 
 .logo-text {
-  color: #1a73e8;
+  /* color: #1a73e8; */
+  color:  #FFFFFF;
   font-weight: bold;
   font-size: 20px; /* Slightly reduced font size */
   line-height: 1;
@@ -40,7 +40,7 @@
 
 .nav-center li {
   cursor: pointer;
-  font-weight: 500;
+  font-weight: 520;
   color: #333;
   transition: color 0.3s ease;
 }
