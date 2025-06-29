@@ -110,7 +110,6 @@ const NewOrder = () => {
         </button>
       </div>
 
-      {/* Right: PDF Preview */}
       <div className="right-preview">
         {files.length > 0 ? (
           files.map((file, idx) => (
@@ -136,7 +135,6 @@ const NewOrder = () => {
         )}
       </div>
 
-      {/* Order Summary Modal */}
       {showSummary && (
         <div className="overlay-confirm">
           <div className="summary-modal">

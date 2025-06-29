@@ -4,7 +4,7 @@ import './Login.css';
 const Login = ({ onLogin }) => {
   const [otp, setOtp] = useState('');
   const [savedEmails, setSavedEmails] = useState([]);
-  const emailRef = useRef(null); // ✅ useRef for uncontrolled input
+  const emailRef = useRef(null); 
 
   useEffect(() => {
     const stored = JSON.parse(localStorage.getItem('savedEmails')) || [];
@@ -56,7 +56,7 @@ const Login = ({ onLogin }) => {
             placeholder="College Email ID"
             ref={emailRef}
             list="emails"
-            autoComplete="email"  // ✅ triggers black browser dropdown
+            autoComplete="email" 
             required
           />
           <datalist id="emails">
@@ -65,7 +65,6 @@ const Login = ({ onLogin }) => {
             ))}
           </datalist>
 
-          {/* OTP Input */}
           <input
             type="text"
             name="otp"

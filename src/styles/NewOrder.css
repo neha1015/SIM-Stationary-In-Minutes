@@ -9,7 +9,6 @@
   font-family: "Segoe UI", Tahoma, sans-serif;
 }
 
-
 .left-settings {
   width: 280px;
   background-color: #d4d7dd;
@@ -44,7 +43,7 @@
 }
 
 .confirm-btn {
-  background-color: #0b880d; /* Green */
+  background-color: #0b880d; 
   color: white;
   padding: 10px 20px;
   font-size: 16px;
@@ -57,11 +56,11 @@
 }
 
 .confirm-btn:hover {
-  background-color: #0f4512; /* Darker green */
+  background-color: #0f4512; 
 }
 
 .cancel-btn {
-  background-color: #e0e0e0; /* Soft gray */
+  background-color: #e0e0e0; 
   color: #333;
   padding: 10px 20px;
   font-size: 16px;
@@ -100,7 +99,6 @@
   display: none !important;
 }
 
-/* Summary Modal Overlay */
 .overlay-confirm {
   position: fixed;
   top: 0;
@@ -114,21 +112,10 @@
   z-index: 1000;
 }
 
-/* Modal Box */
-/* .summary-modal {
-  background-color: #f4f4f4;
-  padding: 30px;
-  border-radius: 12px;
-  width: 400px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
-  text-align: center;
-  animation: fadeIn 0.3s ease;
-} */
-
 .summary-modal {
-  background: rgba(255, 255, 255, 0.3); /* More white = less see-through */
-  backdrop-filter: blur(18px);         /* Stronger blur */
-  -webkit-backdrop-filter: blur(18px); /* Safari support */
+  background: rgba(255, 255, 255, 0.3); 
+  backdrop-filter: blur(18px);         
+  -webkit-backdrop-filter: blur(18px); 
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.4);
   padding: 30px;
@@ -139,7 +126,6 @@
   animation: fadeIn 0.3s ease;
 }
 
-
 .summary-modal h3,
 .summary-modal ul,
 .summary-modal p,
@@ -148,14 +134,12 @@
   color: #222;
 }
 
-/* Modal Heading */
 .summary-modal h3 {
   font-size: 22px;
   margin-bottom: 20px;
   color: #2c3e50;
 }
 
-/* File list */
 .summary-modal ul {
   padding-left: 0;
   list-style: none;
@@ -164,7 +148,6 @@
   font-weight: 500;
 }
 
-/* Details Grid */
 .order-details {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -182,7 +165,6 @@
   color: #444;
 }
 
-/* Button Row */
 .modal-buttons {
   display: flex;
   justify-content: center;
@@ -190,7 +172,6 @@
   margin-top: 20px;
 }
 
-/* Optional: fade-in animation */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-10px); }
   to   { opacity: 1; transform: translateY(0); }
