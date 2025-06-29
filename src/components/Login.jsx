@@ -50,7 +50,6 @@ const Login = ({ onLogin }) => {
           <h2>Stationary In Minutes</h2>
           <p className="sub-heading">ABES Engineering College</p>
 
-          {/* ✅ Email Input */}
           <input
             type="email"
             name="email"
