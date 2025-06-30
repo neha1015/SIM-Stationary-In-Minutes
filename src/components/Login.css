@@ -5,10 +5,10 @@
   background-position: center;
   height: 100vh;
   width: 100vw;
-  position: relative;
   margin: 0;
   padding: 0;
   overflow: hidden;
+  position: relative;
 }
 
 /* Dark Overlay */
@@ -20,57 +20,55 @@
   align-items: center;
   justify-content: center;
 }
+
+/* Login Form Card */
 .login-form {
   background: #fff;
-  padding: 18px 24px;
-  border-radius: 12px;
+  padding: 24px 28px;
+  border-radius: 16px;
   width: 90%;
   max-width: 380px;
   text-align: center;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-  box-sizing: border-box; /* Add this */
-  overflow: hidden;       /* Prevent anything from overflowing */
-}
-.login-logo {
-  height: 180px;        /* or whatever looks good */
-  margin-bottom: 6px;   /* reduce vertical space */
-  object-fit: contain;
-}
-
-.login-form h2 {
-  margin-top: -10px;     /* bring heading closer to logo */
-  margin-bottom: 0;
-}
-
-.login-form input {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
   box-sizing: border-box;
 }
 
+/* Logo */
+.login-logo {
+  height: 140px;
+  margin-bottom: 8px;
+  object-fit: contain;
+}
 
-/* Heading */
+/* Main Heading */
 .login-form h2 {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: bold;
-  margin: 0;               /* removes extra gap */
-  margin-top: -50px;        /* pulls heading closer to logo */
-} */
-
+  margin: 0;
+  margin-bottom: 4px;
+}
 
 /* Subheading */
 .sub-heading {
-  font-size: 13px;
-  color: #666;
-  margin-bottom: 16px;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 20px;
 }
 
-/* Inputs */
+/* Input Fields */
 .login-form input {
   width: 100%;
-  padding: 10px;
-  margin: 8px 0;
+  padding: 12px;
+  margin: 10px 0;
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+.login-form input:focus {
+  border-color: #007bff;
+  outline: none;
 }
 
 /* Button Group */
@@ -78,12 +76,12 @@
   display: flex;
   justify-content: space-between;
   gap: 10px;
-  margin-top: 12px;
+  margin-top: 16px;
 }
 
 .buttons button {
   flex: 1;
-  padding: 10px;
+  padding: 12px;
   border: none;
   background-color: #007bff;
   color: white;
@@ -91,4 +89,38 @@
   cursor: pointer;
   font-weight: bold;
   font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.buttons button:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.buttons button:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+}
+
+/* Resend OTP Section */
+.resend-otp {
+  font-size: 13px;
+  color: #333;
+  margin-top: -4px;
+  margin-bottom: 10px;
+}
+
+.resend-button {
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  font-size: 13px;
+}
+
+.resend-button:disabled {
+  color: gray;
+  cursor: not-allowed;
+   text-decoration: none;
 }

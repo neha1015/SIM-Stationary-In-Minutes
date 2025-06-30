@@ -4,12 +4,24 @@ import './Login.css';
 const Login = ({ onLogin }) => {
   const [otp, setOtp] = useState('');
   const [savedEmails, setSavedEmails] = useState([]);
-  const emailRef = useRef(null); 
+  const [otpSent, setOtpSent] = useState(false);
+  const [timer, setTimer] = useState(0);
+  const emailRef = useRef(null);
 
   useEffect(() => {
     const stored = JSON.parse(localStorage.getItem('savedEmails')) || [];
     setSavedEmails(stored);
   }, []);
+
+  useEffect(() => {
+    let interval;
+    if (timer > 0) {
+      interval = setInterval(() => {
+        setTimer((prev) => prev - 1);
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [timer]);
 
   const sendOtp = () => {
     const email = emailRef.current?.value.trim();
@@ -19,6 +31,8 @@ const Login = ({ onLogin }) => {
     }
 
     alert(`OTP sent to ${email}`);
+    setOtpSent(true);
+    setTimer(30); // 30-second cooldown
 
     const updated = [...new Set([email, ...savedEmails])];
     localStorage.setItem('savedEmails', JSON.stringify(updated));
@@ -33,7 +47,6 @@ const Login = ({ onLogin }) => {
       alert('Email is required.');
       return;
     }
-
     if (!otp.trim()) {
       alert('Please enter OTP.');
       return;
@@ -56,7 +69,7 @@ const Login = ({ onLogin }) => {
             placeholder="College Email ID"
             ref={emailRef}
             list="emails"
-            autoComplete="email" 
+            autoComplete="email"
             required
           />
           <datalist id="emails">
@@ -75,8 +88,24 @@ const Login = ({ onLogin }) => {
             required
           />
 
+          {otpSent && (
+            <p className="resend-otp">
+              Didn't receive OTP?{' '}
+              <button
+                type="button"
+                onClick={sendOtp}
+                disabled={timer > 0}
+                className="resend-button"
+              >
+                {timer > 0 ? `Resend OTP in ${timer}s` : 'Resend OTP'}
+              </button>
+            </p>
+          )}
+
           <div className="buttons">
-            <button type="button" onClick={sendOtp}>Send OTP</button>
+            <button type="button" onClick={sendOtp} disabled={timer > 0}>
+              {otpSent ? (timer > 0 ? `Resend OTP in ${timer}s` : 'Resend OTP') : 'Send OTP'}
+            </button>
             <button type="submit">Login</button>
           </div>
         </form>
