@@ -1,4 +1,3 @@
-// src/components/NewOrder.js
 import '../pdfWorker';
 import React, { useState } from 'react';
 import { Document, Page } from 'react-pdf';
@@ -12,6 +11,7 @@ const NewOrder = () => {
   const [sides, setSides] = useState('One-sided');
   const [pagesToPrint, setPagesToPrint] = useState('ALL');
   const [showSummary, setShowSummary] = useState(false);
+  const [orderPlaced, setOrderPlaced] = useState(false);
 
   const handleFileChange = (e) => {
     const selectedFiles = Array.from(e.target.files).filter(file => file.type === 'application/pdf');
@@ -20,7 +20,7 @@ const NewOrder = () => {
       return;
     }
     setFiles(selectedFiles);
-    setNumPagesList({}); // reset page counts
+    setNumPagesList({});
   };
 
   const onDocumentLoadSuccess = (fileName, { numPages }) => {
@@ -30,7 +30,7 @@ const NewOrder = () => {
   const estimateDelivery = () => {
     const totalPages = Object.values(numPagesList).reduce((a, b) => a + b, 0);
     if (totalPages > 100) return 'Tomorrow';
-    else if (totalPages > 30) return 'Today Evening';
+    if (totalPages > 30) return 'Today Evening';
     return 'Within 30 minutes';
   };
 
@@ -55,21 +55,21 @@ const NewOrder = () => {
     const prevOrders = JSON.parse(localStorage.getItem('simOrders') || '[]');
     prevOrders.push(newOrder);
     localStorage.setItem('simOrders', JSON.stringify(prevOrders));
-    alert('Order placed successfully!');
-    setFiles([]);
+
     setShowSummary(false);
+    setFiles([]);
+    setOrderPlaced(true);
+
+    setTimeout(() => setOrderPlaced(false), 3000);
   };
 
   return (
-
     <div className="new-order-container">
-      {/* Left: Print Settings */}
       <div className="left-settings">
         <h3>Upload PDFs</h3>
         <input type="file" accept="application/pdf" multiple onChange={handleFileChange} />
 
         <h3>Print Settings</h3>
-
         <label>Print Type:</label>
         <select value={printType} onChange={e => setPrintType(e.target.value)}>
           <option>Colored</option>
@@ -77,20 +77,10 @@ const NewOrder = () => {
         </select>
 
         <label>Number of Copies:</label>
-        <input
-          type="number"
-          min="1"
-          value={copies}
-          onChange={(e) => setCopies(parseInt(e.target.value))}
-        />
+        <input type="number" min="1" value={copies} onChange={e => setCopies(parseInt(e.target.value))} />
 
         <label>Pages to Print:</label>
-        <input
-          type="text"
-          placeholder="ALL (e.g. 1-3, 5, 8)"
-          value={pagesToPrint}
-          onChange={(e) => setPagesToPrint(e.target.value)}
-        />
+        <input type="text" placeholder="ALL (e.g. 1-3, 5, 8)" value={pagesToPrint} onChange={e => setPagesToPrint(e.target.value)} />
 
         <label>Sides:</label>
         <select value={sides} onChange={e => setSides(e.target.value)}>
@@ -102,13 +92,11 @@ const NewOrder = () => {
           <strong>Estimated Delivery:</strong> {estimateDelivery()}
         </div>
 
-        <div>
+        <div style={{ marginTop: '8px' }}>
           <strong>Total Cost:</strong> ₹{calculateCost()}
         </div>
 
-        <button className="confirm-btn" onClick={() => setShowSummary(true)}>
-          Confirm Order
-        </button>
+        <button className="confirm-btn" onClick={() => setShowSummary(true)}>Confirm Order</button>
       </div>
 
       <div className="right-preview">
@@ -116,17 +104,9 @@ const NewOrder = () => {
           files.map((file, idx) => (
             <div key={idx} style={{ marginBottom: '20px' }}>
               <strong>{file.name}</strong>
-              <Document
-                file={file}
-                onLoadSuccess={(doc) => onDocumentLoadSuccess(file.name, doc)}
-              >
+              <Document file={file} onLoadSuccess={(doc) => onDocumentLoadSuccess(file.name, doc)}>
                 {Array.from(new Array(numPagesList[file.name] || 0), (el, index) => (
-                  <Page
-                    key={`page_${index + 1}`}
-                    pageNumber={index + 1}
-                    renderAnnotationLayer={false}
-                    renderTextLayer={false}
-                  />
+                  <Page key={`page_${index + 1}`} pageNumber={index + 1} renderAnnotationLayer={false} renderTextLayer={false} />
                 ))}
               </Document>
             </div>
@@ -140,27 +120,31 @@ const NewOrder = () => {
         <div className="overlay-confirm">
           <div className="summary-modal">
             <h3 className="modal-heading">Confirm Your Order</h3>
-
-            <ul>
-              {files.map((f, i) => (
-                <li key={i}>{f.name}</li>
-              ))}
-            </ul>
+            <ul>{files.map((f, i) => (<li key={i}>{f.name}</li>))}</ul>
 
             <div className="order-details">
               <div><span>Number of Copies:</span> {copies}</div>
               <div><span>Print Type:</span> {printType}</div>
               <div><span>Sides:</span> {sides}</div>
               <div><span>Pages to Print:</span> {pagesToPrint || 'All'}</div>
-              <div><span>Estimated Delivery:</span> {estimateDelivery()}</div>
-              <div><span>Total Cost:</span> ₹{calculateCost()}</div>
+              <div style={{ marginTop: '8px' }}><span>Estimated Delivery:</span> {estimateDelivery()}</div>
+            </div>
+
+            <div className="total-cost-highlight">
+              Total Amount Payable: ₹{calculateCost()}
             </div>
 
             <div className="modal-buttons">
-              <button className="confirm-btn" onClick={handleConfirmOrder}>Place Order</button>
+              <button className="confirm-btn" onClick={handleConfirmOrder}>Proceed to Pay</button>
               <button className="cancel-btn" onClick={() => setShowSummary(false)}>Cancel</button>
             </div>
           </div>
+        </div>
+      )}
+
+      {orderPlaced && (
+        <div className="success-overlay">
+          <div className="success-message">🎉 Order Placed Successfully!</div>
         </div>
       )}
     </div>
