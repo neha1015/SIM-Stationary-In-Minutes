@@ -61,6 +61,7 @@ const NewOrder = () => {
   };
 
   return (
+
     <div className="new-order-container">
       {/* Left: Print Settings */}
       <div className="left-settings">

@@ -5,7 +5,8 @@ body {
   height: 100%;
   width: 100%;
   font-family: inherit;
-  background-color:#6b67f6;
+  background-color: #007bff;
+  /* background-color:#6b67f6; */
 }
 
 #root {
