@@ -2,21 +2,35 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  gap: 20px;
+  gap: 40px;
   padding: 30px;
   height: calc(100vh - 80px);
   background-color: #f8f9fb;
   font-family: "Segoe UI", Tahoma, sans-serif;
+  position: relative;
 }
 
-/* 👈 Left Panel (Upload + Settings) */
+/* Vertical Divider */
+.new-order-container::before {
+  content: "";
+  position: absolute;
+  top: 30px;
+  bottom: 30px;
+  left: calc(300px + 30px + 20px); /* 300px width + 30px padding + 20px left-settings padding */
+  width: 1px;
+  background-color: #b4b4b4;
+  z-index: 1;
+}
+
 .left-settings {
-  width: 280px;
+  width: 300px;
   background-color: #d4d7dd;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   padding: 20px;
   border-radius: 10px;
   overflow-y: auto;
+  max-height: calc(100vh - 150px);
+  z-index: 2;
 }
 
 .left-settings h3 {
@@ -31,78 +45,105 @@
   font-weight: 500;
 }
 
-/* 🎯 Uniform styling for all inputs/selects */
 .left-settings select,
 .left-settings input[type='number'],
 .left-settings input[type='text'],
 .left-settings input[type='file'] {
   width: 100%;
-  padding: 8px;
+  padding: 6px;
   margin-top: 5px;
-  margin-bottom: 10px;
   border-radius: 4px;
   border: 1px solid #464699;
   font-size: 14px;
   box-sizing: border-box;
 }
 
-/* ✅ Vertical Divider */
-.divider {
-  width: 1px;
-  background-color: #bbb;
-  height: 100%;
-}
-
-/* ✅ Confirm Button */
-.confirm-btn {
-  background-color: #0b880d;
-  color: white;
-  padding: 10px 20px;
-  font-size: 16px;
+/* Buttons */
+.confirm-btn,
+.add-another-btn {
+  padding: 10px 14px;
+  font-size: 14px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  margin-top: 15px;
+}
+
+.confirm-btn {
+  background-color: #0b880d;
+  color: white;
 }
 
 .confirm-btn:hover {
   background-color: #0f4512;
 }
 
-/* Cancel Button */
-.cancel-btn {
-  background-color: #e0e0e0;
+.add-another-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+.add-another-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Saved Files Section */
+.saved-files {
+  margin-top: 20px;
+  background-color: #eef1f4;
+  padding: 10px;
+  border-radius: 6px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.saved-files h4 {
+  margin-bottom: 8px;
   color: #333;
-  padding: 10px 20px;
+  font-size: 15px;
+}
+
+.saved-files ul {
+  list-style: none;
+  padding-left: 0;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.saved-files li {
+  font-size: 14px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  padding: 6px 8px;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.saved-files span[style*="cursor: pointer"] {
   font-size: 16px;
-  border: none;
-  border-radius: 8px;
+  color: #e02424;
+  margin-left: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.cancel-btn:hover {
-  background-color: #d5d5d5;
-}
-
-/* 📰 Right-side PDF Preview Panel */
+/* Preview Section */
 .right-preview {
   flex: 1;
   max-width: 650px;
   min-width: 500px;
+  height: calc(100vh - 150px);
   overflow-y: auto;
   background-color: #dee5e0;
   border-radius: 8px;
   padding: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
-  margin-left: auto;
-  margin-right: auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-left: none; /* Old border removed, line already added via ::before */
+  z-index: 2;
 }
 
-/* Placeholder before preview */
 .pdf-placeholder {
   color: #130d0d;
   font-style: italic;
@@ -110,12 +151,11 @@
   text-align: center;
 }
 
-/* Hide internal text layer from react-pdf */
 .react-pdf__Page__textContent {
   display: none !important;
 }
 
-/* 💬 Confirm Overlay */
+/* Confirm Order Modal */
 .overlay-confirm {
   position: fixed;
   top: 0;
@@ -143,14 +183,6 @@
   animation: fadeIn 0.3s ease;
 }
 
-.summary-modal h3,
-.summary-modal ul,
-.summary-modal p,
-.order-details div,
-.order-details span {
-  color: #222;
-}
-
 .summary-modal h3 {
   font-size: 22px;
   margin-bottom: 20px;
@@ -164,29 +196,6 @@
   font-weight: 500;
 }
 
-/* Order Summary Details */
-.order-details {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  row-gap: 10px;
-  column-gap: 20px;
-  text-align: left;
-  font-size: 15px;
-  color: #333;
-  margin-top: 10px;
-  margin-bottom: 20px;
-}
-
-.order-details div {
-  margin-bottom: 8px;
-}
-
-.order-details span {
-  font-weight: bold;
-  color: #444;
-}
-
-/* Confirm/Cancel Button Row */
 .modal-buttons {
   display: flex;
   justify-content: center;
@@ -194,19 +203,7 @@
   margin-top: 20px;
 }
 
-/* ✅ Fade In Animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ✅ Order Success Toast Overlay */
+/* Success Message */
 .success-overlay {
   position: fixed;
   top: 0;
@@ -230,7 +227,18 @@
   animation: pop 0.5s ease;
 }
 
-/* ✅ Pop Animation */
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes pop {
   0% {
     transform: scale(0.5);

@@ -12,6 +12,7 @@ const NewOrder = () => {
   const [pagesToPrint, setPagesToPrint] = useState('ALL');
   const [showSummary, setShowSummary] = useState(false);
   const [orderPlaced, setOrderPlaced] = useState(false);
+  const [savedOrders, setSavedOrders] = useState([]);
 
   const handleFileChange = (e) => {
     const selectedFiles = Array.from(e.target.files).filter(file => file.type === 'application/pdf');
@@ -33,25 +34,46 @@ const NewOrder = () => {
     return totalPages * perPage * copies;
   };
 
-  const handleConfirmOrder = () => {
-    const newOrder = {
-      files: files.map(f => f.name),
+  const handleAddAnother = () => {
+    const saved = {
+      files,
       copies,
       printType,
       sides,
       pagesToPrint,
-      date: new Date().toLocaleString(),
-      cost: calculateCost(),
+      cost: calculateCost()
+    };
+    setSavedOrders(prev => [...prev, saved]);
+    setFiles([]);
+    setNumPagesList({});
+  };
+
+  const handleRemoveSaved = (index) => {
+    setSavedOrders(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const handleConfirmOrder = () => {
+    const finalOrder = {
+      files: [...savedOrders, {
+        files,
+        copies,
+        printType,
+        sides,
+        pagesToPrint,
+        cost: calculateCost()
+      }],
+      date: new Date().toLocaleString()
     };
 
     const prevOrders = JSON.parse(localStorage.getItem('simOrders') || '[]');
-    prevOrders.push(newOrder);
+    prevOrders.push(finalOrder);
     localStorage.setItem('simOrders', JSON.stringify(prevOrders));
 
     setShowSummary(false);
     setFiles([]);
+    setNumPagesList({});
+    setSavedOrders([]);
     setOrderPlaced(true);
-
     setTimeout(() => setOrderPlaced(false), 3000);
   };
 
@@ -69,20 +91,10 @@ const NewOrder = () => {
         </select>
 
         <label>Number of Copies:</label>
-        <input
-          type="number"
-          min="1"
-          value={copies}
-          onChange={e => setCopies(parseInt(e.target.value))}
-        />
+        <input type="number" min="1" value={copies} onChange={e => setCopies(parseInt(e.target.value))} />
 
         <label>Pages to Print:</label>
-        <input
-          type="text"
-          placeholder="ALL (e.g. 1-3, 5, 8)"
-          value={pagesToPrint}
-          onChange={e => setPagesToPrint(e.target.value)}
-        />
+        <input type="text" placeholder="ALL (e.g. 1-3, 5, 8)" value={pagesToPrint} onChange={e => setPagesToPrint(e.target.value)} />
 
         <label>Sides:</label>
         <select value={sides} onChange={e => setSides(e.target.value)}>
@@ -90,14 +102,34 @@ const NewOrder = () => {
           <option>Both-sided</option>
         </select>
 
+        <div style={{ marginTop: '12px', display: 'flex', gap: '10px' }}>
+          <button className="confirm-btn" onClick={() => setShowSummary(true)}>Confirm Order</button>
+          <button className="add-another-btn" onClick={handleAddAnother}>+ Add Another File</button>
+        </div>
+
+        {savedOrders.length > 0 && (
+          <div className="saved-files" style={{ marginTop: '20px' }}>
+            <h4>Saved Files:</h4>
+            <ul>
+              {savedOrders.map((entry, idx) => (
+                <li key={idx} style={{ marginBottom: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div>
+                    {entry.files.map((f, i) => (
+                      <span key={i}>📄 {f.name}{i < entry.files.length - 1 ? ', ' : ''}</span>
+                    ))}
+                    &nbsp;| {entry.printType} | {entry.copies} copies
+                  </div>
+                  <span onClick={() => handleRemoveSaved(idx)} style={{ color: 'red', cursor: 'pointer', fontSize: '18px' }}>🗑️</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         <div style={{ marginTop: '8px' }}>
           <strong>Total Cost:</strong> ₹{calculateCost()}
         </div>
-
-        <button className="confirm-btn" onClick={() => setShowSummary(true)}>Confirm Order</button>
       </div>
-
-      <div className="divider"></div>
 
       <div className="right-preview">
         {files.length > 0 ? (
@@ -120,18 +152,15 @@ const NewOrder = () => {
         <div className="overlay-confirm">
           <div className="summary-modal">
             <h3 className="modal-heading">Confirm Your Order</h3>
-            <ul>{files.map((f, i) => (<li key={i}>{f.name}</li>))}</ul>
-
-            <div className="order-details">
-              <div><span>Number of Copies:</span> {copies}</div>
-              <div><span>Print Type:</span> {printType}</div>
-              <div><span>Sides:</span> {sides}</div>
-              <div><span>Pages to Print:</span> {pagesToPrint || 'All'}</div>
-            </div>
-
-            <div className="total-cost-highlight">
-              Total Amount Payable: ₹{calculateCost()}
-            </div>
+            <ul>
+              {[...savedOrders, { files }].flat().map((entry, i) => (
+                <li key={i}>
+                  {entry.files.map((f, j) => (
+                    <span key={j}>📄 {f.name}{j < entry.files.length - 1 ? ', ' : ''}</span>
+                  ))}
+                </li>
+              ))}
+            </ul>
 
             <div className="modal-buttons">
               <button className="confirm-btn" onClick={handleConfirmOrder}>Proceed to Pay</button>
