@@ -2,13 +2,14 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  gap: 40px;
+  gap: 20px;
   padding: 30px;
   height: calc(100vh - 80px);
   background-color: #f8f9fb;
   font-family: "Segoe UI", Tahoma, sans-serif;
 }
 
+/* 👈 Left Panel (Upload + Settings) */
 .left-settings {
   width: 280px;
   background-color: #d4d7dd;
@@ -30,20 +31,31 @@
   font-weight: 500;
 }
 
+/* 🎯 Uniform styling for all inputs/selects */
 .left-settings select,
 .left-settings input[type='number'],
 .left-settings input[type='text'],
 .left-settings input[type='file'] {
   width: 100%;
-  padding: 6px;
+  padding: 8px;
   margin-top: 5px;
+  margin-bottom: 10px;
   border-radius: 4px;
   border: 1px solid #464699;
   font-size: 14px;
+  box-sizing: border-box;
 }
 
+/* ✅ Vertical Divider */
+.divider {
+  width: 1px;
+  background-color: #bbb;
+  height: 100%;
+}
+
+/* ✅ Confirm Button */
 .confirm-btn {
-  background-color: #0b880d; 
+  background-color: #0b880d;
   color: white;
   padding: 10px 20px;
   font-size: 16px;
@@ -56,11 +68,12 @@
 }
 
 .confirm-btn:hover {
-  background-color: #0f4512; 
+  background-color: #0f4512;
 }
 
+/* Cancel Button */
 .cancel-btn {
-  background-color: #e0e0e0; 
+  background-color: #e0e0e0;
   color: #333;
   padding: 10px 20px;
   font-size: 16px;
@@ -75,19 +88,21 @@
   background-color: #d5d5d5;
 }
 
+/* 📰 Right-side PDF Preview Panel */
 .right-preview {
   flex: 1;
-  max-width: 650px;  
-  min-width: 500px;  
+  max-width: 650px;
+  min-width: 500px;
   overflow-y: auto;
   background-color: #dee5e0;
   border-radius: 8px;
   padding: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
-  margin-left: auto; 
-  margin-right: auto; 
+  margin-left: auto;
+  margin-right: auto;
 }
 
+/* Placeholder before preview */
 .pdf-placeholder {
   color: #130d0d;
   font-style: italic;
@@ -95,17 +110,19 @@
   text-align: center;
 }
 
+/* Hide internal text layer from react-pdf */
 .react-pdf__Page__textContent {
   display: none !important;
 }
 
+/* 💬 Confirm Overlay */
 .overlay-confirm {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7); /* dark overlay */
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -113,9 +130,9 @@
 }
 
 .summary-modal {
-  background: rgba(255, 255, 255, 0.3); 
-  backdrop-filter: blur(18px);         
-  -webkit-backdrop-filter: blur(18px); 
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.4);
   padding: 30px;
@@ -144,10 +161,10 @@
   padding-left: 0;
   list-style: none;
   margin-bottom: 10px;
-  color: #222;
   font-weight: 500;
 }
 
+/* Order Summary Details */
 .order-details {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -160,11 +177,16 @@
   margin-bottom: 20px;
 }
 
+.order-details div {
+  margin-bottom: 8px;
+}
+
 .order-details span {
-  font-weight: 600;
+  font-weight: bold;
   color: #444;
 }
 
+/* Confirm/Cancel Button Row */
 .modal-buttons {
   display: flex;
   justify-content: center;
@@ -172,18 +194,26 @@
   margin-top: 20px;
 }
 
+/* ✅ Fade In Animation */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-/* Success Animation Overlay */
+
+/* ✅ Order Success Toast Overlay */
 .success-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -191,7 +221,7 @@
 }
 
 .success-message {
-  background: #4CAF50;
+  background: #4caf50;
   color: white;
   padding: 20px 40px;
   font-size: 20px;
@@ -200,18 +230,14 @@
   animation: pop 0.5s ease;
 }
 
+/* ✅ Pop Animation */
 @keyframes pop {
-  0% { transform: scale(0.5); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
-
-/* Improve spacing in modal */
-.order-details div {
-  margin-bottom: 8px;
-}
-
-.order-details span {
-  font-weight: bold;
-}
-
-

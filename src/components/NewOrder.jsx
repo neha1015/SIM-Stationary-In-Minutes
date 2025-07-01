@@ -27,13 +27,6 @@ const NewOrder = () => {
     setNumPagesList(prev => ({ ...prev, [fileName]: numPages }));
   };
 
-  const estimateDelivery = () => {
-    const totalPages = Object.values(numPagesList).reduce((a, b) => a + b, 0);
-    if (totalPages > 100) return 'Tomorrow';
-    if (totalPages > 30) return 'Today Evening';
-    return 'Within 30 minutes';
-  };
-
   const calculateCost = () => {
     const totalPages = Object.values(numPagesList).reduce((a, b) => a + b, 0);
     const perPage = printType === 'Colored' ? 5 : 1;
@@ -48,7 +41,6 @@ const NewOrder = () => {
       sides,
       pagesToPrint,
       date: new Date().toLocaleString(),
-      delivery: estimateDelivery(),
       cost: calculateCost(),
     };
 
@@ -77,10 +69,20 @@ const NewOrder = () => {
         </select>
 
         <label>Number of Copies:</label>
-        <input type="number" min="1" value={copies} onChange={e => setCopies(parseInt(e.target.value))} />
+        <input
+          type="number"
+          min="1"
+          value={copies}
+          onChange={e => setCopies(parseInt(e.target.value))}
+        />
 
         <label>Pages to Print:</label>
-        <input type="text" placeholder="ALL (e.g. 1-3, 5, 8)" value={pagesToPrint} onChange={e => setPagesToPrint(e.target.value)} />
+        <input
+          type="text"
+          placeholder="ALL (e.g. 1-3, 5, 8)"
+          value={pagesToPrint}
+          onChange={e => setPagesToPrint(e.target.value)}
+        />
 
         <label>Sides:</label>
         <select value={sides} onChange={e => setSides(e.target.value)}>
@@ -88,16 +90,14 @@ const NewOrder = () => {
           <option>Both-sided</option>
         </select>
 
-        <div style={{ marginTop: '20px' }}>
-          <strong>Estimated Delivery:</strong> {estimateDelivery()}
-        </div>
-
         <div style={{ marginTop: '8px' }}>
           <strong>Total Cost:</strong> ₹{calculateCost()}
         </div>
 
         <button className="confirm-btn" onClick={() => setShowSummary(true)}>Confirm Order</button>
       </div>
+
+      <div className="divider"></div>
 
       <div className="right-preview">
         {files.length > 0 ? (
@@ -127,7 +127,6 @@ const NewOrder = () => {
               <div><span>Print Type:</span> {printType}</div>
               <div><span>Sides:</span> {sides}</div>
               <div><span>Pages to Print:</span> {pagesToPrint || 'All'}</div>
-              <div style={{ marginTop: '8px' }}><span>Estimated Delivery:</span> {estimateDelivery()}</div>
             </div>
 
             <div className="total-cost-highlight">
