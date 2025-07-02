@@ -11,6 +11,7 @@ const NewOrder = () => {
   const [sides, setSides] = useState('One-sided');
   const [pagesToPrint, setPagesToPrint] = useState('ALL');
   const [showSummary, setShowSummary] = useState(false);
+  const [activePages, setActivePages] = useState({});
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [savedOrders, setSavedOrders] = useState([]);
 
@@ -199,21 +200,40 @@ const NewOrder = () => {
       </div>
 
       <div className="right-preview">
-        {files.length > 0 ? (
-          files.map((file, idx) => (
-            <div key={idx} style={{ marginBottom: '20px' }}>
-              <strong>{file.name}</strong>
-              <Document file={file} onLoadSuccess={(doc) => onDocumentLoadSuccess(file.name, doc)}>
-                {Array.from(new Array(numPagesList[file.name] || 0), (el, index) => (
-                  <Page key={`page_${index + 1}`} pageNumber={index + 1} renderAnnotationLayer={false} renderTextLayer={false} />
-                ))}
-              </Document>
-            </div>
-          ))
-        ) : (
-          <div className="pdf-placeholder">PDF Preview will appear here</div>
+  {files.length > 0 ? (
+    files.map((file, idx) => (
+      <div key={idx} style={{ marginBottom: '20px' }}>
+        <strong>{file.name}</strong>
+        <div
+          style={{ maxHeight: '500px', overflowY: 'auto', border: '1px solid #ccc', padding: '8px' }}
+          onScroll={(e) => {
+            const container = e.target;
+            const pageHeight = container.scrollHeight / (numPagesList[file.name] || 1);
+            const currentPage = Math.min(
+              Math.ceil((container.scrollTop + container.clientHeight / 2) / pageHeight),
+              numPagesList[file.name] || 1
+            );
+            setActivePages(prev => ({ ...prev, [file.name]: currentPage }));
+          }}
+        >
+          <Document file={file} onLoadSuccess={(doc) => onDocumentLoadSuccess(file.name, doc)}>
+            {Array.from(new Array(numPagesList[file.name] || 0), (el, index) => (
+              <Page key={`page_${index + 1}`} pageNumber={index + 1} renderAnnotationLayer={false} renderTextLayer={false} />
+            ))}
+          </Document>
+        </div>
+        {numPagesList[file.name] && (
+          <div style={{ marginTop: '5px', textAlign: 'center', color: '#555' }}>
+            Page {activePages[file.name] || 1} of {numPagesList[file.name]}
+          </div>
         )}
       </div>
+    ))
+  ) : (
+    <div className="pdf-placeholder">PDF Preview will appear here</div>
+  )}
+</div>
+
 
       {showSummary && (
         <div className="overlay-confirm">
