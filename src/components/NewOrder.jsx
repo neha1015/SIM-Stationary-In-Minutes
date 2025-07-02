@@ -131,6 +131,8 @@ const NewOrder = () => {
         </div>
       </div>
 
+          <div className="vertical-divider"></div>
+
       <div className="right-preview">
         {files.length > 0 ? (
           files.map((file, idx) => (
