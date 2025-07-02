@@ -30,10 +30,20 @@ const NewOrder = () => {
     setNumPagesList(prev => ({ ...prev, [fileName]: numPages }));
   };
 
+  const calculateFileCost = (pageCount, copies, type) => {
+    const perPage = type === 'Colored' ? 10 : 2;
+    return pageCount * perPage * copies;
+  };
+
   const calculateCost = () => {
     const totalPages = Object.values(numPagesList).reduce((a, b) => a + b, 0);
-    const perPage = printType === 'Colored' ? 5 : 1;
-    return totalPages * perPage * copies;
+    return calculateFileCost(totalPages, copies, printType);
+  };
+
+  const getTotalCost = () => {
+    const savedCost = savedOrders.reduce((acc, order) => acc + order.cost, 0);
+    const currentCost = calculateCost();
+    return savedCost + currentCost;
   };
 
   const handleAddAnother = () => {
@@ -129,16 +139,10 @@ const NewOrder = () => {
         </select>
 
         <div style={{ marginTop: '12px', display: 'flex', gap: '10px' }}>
-          <button
-            className="add-another-btn"
-            onClick={handleAddAnother}
-          >
+          <button className="add-another-btn" onClick={handleAddAnother}>
             + Add Another File
           </button>
-          <button
-            className="confirm-btn"
-            onClick={handleConfirmOrder}
-          >
+          <button className="confirm-btn" onClick={() => setShowSummary(true)}>
             Confirm Order
           </button>
         </div>
@@ -148,24 +152,21 @@ const NewOrder = () => {
             <h4>Saved Files:</h4>
             <ul>
               {savedOrders.map((entry, idx) => (
-                <li
-                  key={idx}
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    padding: '6px 10px',
-                    background: '#fff',
-                    borderRadius: '6px',
-                    boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
-                    marginBottom: '8px'
-                  }}
-                >
+                <li key={idx} style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  padding: '6px 10px',
+                  background: '#fff',
+                  borderRadius: '6px',
+                  boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+                  marginBottom: '8px'
+                }}>
                   <div style={{ flex: 1 }}>
                     {entry.files.map((f, i) => (
                       <span key={i}>📄 {f.name}{i < entry.files.length - 1 ? ', ' : ''}</span>
                     ))}
-                    &nbsp;| {entry.printType} | {entry.copies} copies
+                    &nbsp;| {entry.printType} | {entry.copies} copies | ₹{entry.cost}
                   </div>
                   <span
                     onClick={() => handleRemoveSaved(idx)}
@@ -189,8 +190,11 @@ const NewOrder = () => {
           </div>
         )}
 
+        <div style={{ marginTop: '12px' }}>
+          <strong>Current File Cost:</strong> ₹{calculateCost()}
+        </div>
         <div style={{ marginTop: '8px' }}>
-          <strong>Total Cost:</strong> ₹{calculateCost()}
+          <strong>Grand Total Cost:</strong> ₹{getTotalCost()}
         </div>
       </div>
 
@@ -216,14 +220,16 @@ const NewOrder = () => {
           <div className="summary-modal">
             <h3 className="modal-heading">Confirm Your Order</h3>
             <ul>
-              {[...savedOrders, { files }].flat().map((entry, i) => (
+              {[...savedOrders, { files, copies, printType, cost: calculateCost() }].flat().map((entry, i) => (
                 <li key={i}>
                   {entry.files.map((f, j) => (
                     <span key={j}>📄 {f.name}{j < entry.files.length - 1 ? ', ' : ''}</span>
                   ))}
+                  &nbsp;| {entry.printType} | {entry.copies} copies | ₹{entry.cost}
                 </li>
               ))}
             </ul>
+            <h4 style={{ marginTop: '15px' }}>Total Payable Amount: ₹{getTotalCost()}</h4>
 
             <div className="modal-buttons">
               <button className="confirm-btn" onClick={handleConfirmOrder}>Proceed to Pay</button>
