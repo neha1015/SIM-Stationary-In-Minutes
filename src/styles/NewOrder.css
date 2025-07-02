@@ -38,22 +38,6 @@
   box-sizing: border-box;
 }
 
-
-/* .right-preview {
-  flex: 1;
-  min-width: 500px;
-  max-width: 650px;
-  height: auto;
-  overflow-y: auto;
-  background-color: #dee5e0;
-  border-radius: 8px;
-  padding: 10px;
-  margin-left: 140px; 
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  box-sizing: border-box;
-} */
-
-
 /* Placeholder Message */
 .pdf-placeholder {
   color: #130d0d;
@@ -61,8 +45,6 @@
   padding: 40px;
   text-align: center;
 }
-
-
 
 .left-settings h3 {
   margin-bottom: 10px;
@@ -237,6 +219,12 @@
   border-radius: 8px;
   animation: pop 0.5s ease;
 }
+
+.add-another-btn:disabled {
+  background-color: #a3a3a3;
+  cursor: not-allowed;
+}
+
 
 /* Animations */
 @keyframes fadeIn {

@@ -35,6 +35,11 @@ const NewOrder = () => {
   };
 
   const handleAddAnother = () => {
+    if (files.length === 0) {
+      alert("Please upload a file before adding.");
+      return;
+    }
+
     const saved = {
       files,
       copies,
@@ -43,10 +48,18 @@ const NewOrder = () => {
       pagesToPrint,
       cost: calculateCost()
     };
+
     setSavedOrders(prev => [...prev, saved]);
     setFiles([]);
     setNumPagesList({});
-  };
+
+    // Reset to defaults for next upload
+    setCopies(1);
+    setPrintType('Colored');
+    setSides('One-sided');
+    setPagesToPrint('ALL');
+};
+
 
   const handleRemoveSaved = (index) => {
     setSavedOrders(prev => prev.filter((_, i) => i !== index));
@@ -101,11 +114,31 @@ const NewOrder = () => {
           <option>One-sided</option>
           <option>Both-sided</option>
         </select>
+      <div style={{ marginTop: '12px', display: 'flex', gap: '10px' }}>
+ 
+      <button
+  className="confirm-btn"
+  onClick={() => {
+    if (files.length === 0 && savedOrders.length === 0) {
+      alert("Please upload at least one file to confirm your order.");
+      return;
+    }
+    setShowSummary(true);
+  }}
+>
+  Confirm Order
+</button>
 
-        <div style={{ marginTop: '12px', display: 'flex', gap: '10px' }}>
-          <button className="confirm-btn" onClick={() => setShowSummary(true)}>Confirm Order</button>
-          <button className="add-another-btn" onClick={handleAddAnother}>+ Add Another File</button>
-        </div>
+
+  <button
+    className="add-another-btn"
+    onClick={handleAddAnother}
+    disabled={files.length === 0}
+  >
+    + Add Another File
+  </button>
+</div>
+
 
         {savedOrders.length > 0 && (
           <div className="saved-files" style={{ marginTop: '20px' }}>
