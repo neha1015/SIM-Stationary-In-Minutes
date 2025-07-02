@@ -1,5 +1,5 @@
 import '../pdfWorker';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Document, Page } from 'react-pdf';
 import '../styles/NewOrder.css';
 
@@ -13,6 +13,8 @@ const NewOrder = () => {
   const [showSummary, setShowSummary] = useState(false);
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [savedOrders, setSavedOrders] = useState([]);
+
+  const fileInputRef = useRef(null);
 
   const handleFileChange = (e) => {
     const selectedFiles = Array.from(e.target.files).filter(file => file.type === 'application/pdf');
@@ -52,20 +54,24 @@ const NewOrder = () => {
     setSavedOrders(prev => [...prev, saved]);
     setFiles([]);
     setNumPagesList({});
+    fileInputRef.current.value = null;
 
-    // Reset to defaults for next upload
     setCopies(1);
     setPrintType('Colored');
     setSides('One-sided');
     setPagesToPrint('ALL');
-};
-
+  };
 
   const handleRemoveSaved = (index) => {
     setSavedOrders(prev => prev.filter((_, i) => i !== index));
   };
 
   const handleConfirmOrder = () => {
+    if (files.length === 0 && savedOrders.length === 0) {
+      alert("Please upload at least one file to confirm your order.");
+      return;
+    }
+
     const finalOrder = {
       files: [...savedOrders, {
         files,
@@ -86,6 +92,7 @@ const NewOrder = () => {
     setFiles([]);
     setNumPagesList({});
     setSavedOrders([]);
+    fileInputRef.current.value = null;
     setOrderPlaced(true);
     setTimeout(() => setOrderPlaced(false), 3000);
   };
@@ -94,7 +101,13 @@ const NewOrder = () => {
     <div className="new-order-container">
       <div className="left-settings">
         <h3>Upload PDFs</h3>
-        <input type="file" accept="application/pdf" multiple onChange={handleFileChange} />
+        <input
+          type="file"
+          accept="application/pdf"
+          multiple
+          onChange={handleFileChange}
+          ref={fileInputRef}
+        />
 
         <h3>Print Settings</h3>
         <label>Print Type:</label>
@@ -114,45 +127,62 @@ const NewOrder = () => {
           <option>One-sided</option>
           <option>Both-sided</option>
         </select>
-      <div style={{ marginTop: '12px', display: 'flex', gap: '10px' }}>
- 
-      <button
-  className="confirm-btn"
-  onClick={() => {
-    if (files.length === 0 && savedOrders.length === 0) {
-      alert("Please upload at least one file to confirm your order.");
-      return;
-    }
-    setShowSummary(true);
-  }}
->
-  Confirm Order
-</button>
 
-
-  <button
-    className="add-another-btn"
-    onClick={handleAddAnother}
-    disabled={files.length === 0}
-  >
-    + Add Another File
-  </button>
-</div>
-
+        <div style={{ marginTop: '12px', display: 'flex', gap: '10px' }}>
+          <button
+            className="add-another-btn"
+            onClick={handleAddAnother}
+          >
+            + Add Another File
+          </button>
+          <button
+            className="confirm-btn"
+            onClick={handleConfirmOrder}
+          >
+            Confirm Order
+          </button>
+        </div>
 
         {savedOrders.length > 0 && (
           <div className="saved-files" style={{ marginTop: '20px' }}>
             <h4>Saved Files:</h4>
             <ul>
               {savedOrders.map((entry, idx) => (
-                <li key={idx} style={{ marginBottom: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <div>
+                <li
+                  key={idx}
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    padding: '6px 10px',
+                    background: '#fff',
+                    borderRadius: '6px',
+                    boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+                    marginBottom: '8px'
+                  }}
+                >
+                  <div style={{ flex: 1 }}>
                     {entry.files.map((f, i) => (
                       <span key={i}>📄 {f.name}{i < entry.files.length - 1 ? ', ' : ''}</span>
                     ))}
                     &nbsp;| {entry.printType} | {entry.copies} copies
                   </div>
-                  <span onClick={() => handleRemoveSaved(idx)} style={{ color: 'red', cursor: 'pointer', fontSize: '18px' }}>🗑️</span>
+                  <span
+                    onClick={() => handleRemoveSaved(idx)}
+                    style={{
+                      cursor: 'pointer',
+                      color: 'red',
+                      marginLeft: '15px',
+                      padding: '4px',
+                      borderRadius: '4px',
+                      transition: 'background-color 0.2s ease'
+                    }}
+                    title="Remove File"
+                    onMouseEnter={e => e.target.style.backgroundColor = '#ffe6e6'}
+                    onMouseLeave={e => e.target.style.backgroundColor = 'transparent'}
+                  >
+                    🗑️
+                  </span>
                 </li>
               ))}
             </ul>
@@ -163,8 +193,6 @@ const NewOrder = () => {
           <strong>Total Cost:</strong> ₹{calculateCost()}
         </div>
       </div>
-
-          <div className="vertical-divider"></div>
 
       <div className="right-preview">
         {files.length > 0 ? (
