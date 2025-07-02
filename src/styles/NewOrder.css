@@ -7,7 +7,6 @@
   font-family: "Segoe UI", Tahoma, sans-serif;
 }
 
-/* Left Side */
 .left-settings {
   width: 300px;
   background-color: #d4d7dd;
@@ -19,28 +18,40 @@
   box-sizing: border-box;
 }
 
-/* Divider Between Left and Right */
 .vertical-divider {
   width: 1px;
   background-color: #b4b4b4;
   height: calc(100vh - 150px);
   margin: 0 20px;
 }
-
-/* Right Side */
 .right-preview {
   flex: 1;
   min-width: 500px;
+  max-width: 800px;
+  height: calc(100vh - 150px); /* Fixed height based on viewport */
+  overflow-y: auto; /* Scroll  inside preview  */
+  background-color: #dee5e0;
+  border-radius: 8px;
+  padding: 10px;
+  margin-left: 120px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+}
+
+
+/* .right-preview {
+  flex: 1;
+  min-width: 500px;
   max-width: 650px;
-  height: auto; /* We'll handle height dynamically */
+  height: auto;
   overflow-y: auto;
   background-color: #dee5e0;
   border-radius: 8px;
   padding: 10px;
-  margin-left: 140px; /* Creates better spacing from divider */
+  margin-left: 140px; 
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
-}
+} */
 
 
 /* Placeholder Message */

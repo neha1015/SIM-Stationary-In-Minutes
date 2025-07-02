@@ -1,4 +1,4 @@
-body {
+html,body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
@@ -6,6 +6,7 @@ body {
   width: 100%;
   font-family: inherit;
   background-color: #007bff;
+  overflow: scroll;
 }
 
 #root {
