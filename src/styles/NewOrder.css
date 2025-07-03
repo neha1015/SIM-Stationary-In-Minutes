@@ -196,6 +196,22 @@
   margin-top: 20px;
 }
 
+.modal-buttons .cancel-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.modal-buttons .cancel-btn:hover {
+  background-color: darkred;
+}
+
+
 /* Success Message */
 .success-overlay {
   position: fixed;
