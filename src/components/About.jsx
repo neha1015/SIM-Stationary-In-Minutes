@@ -1,15 +1,27 @@
-// src/components/About.js
+import React, { useEffect, useState } from 'react';
+import '../styles/About.css';
 
-import React from 'react';
+const AboutUs = () => {
+  const [visible, setVisible] = useState(false);
 
-const About = () => {
+  useEffect(() => {
+    setTimeout(() => setVisible(true), 200);
+  }, []);
+
   return (
-    <div>
-      <h3>About SIM: Stationary In Minutes</h3>
-      <p>SIM (Stationary In Minutes) is a smart and time-saving solution designed exclusively for students of ABES Engineering College. Our platform allows students to upload their documents, place print orders online, and pick them up from the campus stationery shop — all in just a few clicks.
-         We understand how valuable your time is, especially during exams, submissions, and project deadlines. That’s why SIM eliminates long queues, manual order slips, and repeated follow-ups. Just upload, order, and collect — simple, fast, and efficient.</p>
+    <div className="about-wrapper">
+      <div className={`about-container ${visible ? 'fade-in' : ''}`}>
+        <h2>About <span className="highlight">Stationary In Minutes</span></h2>
+
+        <div className="about-card">
+          <p>Save time with instant online ordering</p>
+          <p>Quick document uploads & easy printing</p>
+          <p>No queues, no slips — just fast service</p>
+          <p><strong>Simple, fast, efficient — made for ABES students</strong></p>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default About;
+export default AboutUs;
