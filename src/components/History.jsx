@@ -3,7 +3,7 @@ import '../styles/History.css';
 
 const History = () => {
   const [orders, setOrders] = useState([]);
-  const [sortOrder, setSortOrder] = useState('recent'); 
+  const [sortOrder, setSortOrder] = useState('recent');
 
   useEffect(() => {
     const stored = JSON.parse(localStorage.getItem('simOrders') || '[]');
@@ -15,6 +15,17 @@ const History = () => {
     const timeB = new Date(b.date).getTime();
     return sortOrder === 'recent' ? timeB - timeA : timeA - timeB;
   });
+
+  // ✅ Function to format date as dd/mm/yyyy, hh:mm:ss
+  const formatDate = (dateStr) => {
+    const date = new Date(dateStr);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    const time = date.toLocaleTimeString();
+
+    return `${day}/${month}/${year}, ${time}`;
+  };
 
   return (
     <div className="history-container">
@@ -39,7 +50,8 @@ const History = () => {
           {sortedOrders.map((order, index) => (
             <div key={index} className="order-card">
               <h3>Order #{index + 1}</h3>
-              <p><strong>Date:</strong> {order.date}</p>
+              {/* ✅ Date formatted */}
+              <p><strong>Date:</strong> {formatDate(order.date)}</p>
 
               {order.files.map((fileSet, idx) => (
                 <div key={idx} className="file-details">
