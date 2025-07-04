@@ -20,16 +20,15 @@
 
 .vertical-divider {
   width: 1px;
-  background-color: #1e1919;
+  background-color: #b4b4b4;
   height: calc(100vh - 150px);
   margin: 0 20px;
 }
-
 .right-preview {
   flex: 1;
   min-width: 500px;
   max-width: 800px;
-  height: calc(100vh - 150px); /* Fixed height based on viewport */
+  height: calc(100vh - 80px); /* Fixed height based on viewport */
   overflow-y: auto; /* Scroll  inside preview  */
   background-color: #dee5e0;
   border-radius: 8px;
@@ -39,7 +38,6 @@
   box-sizing: border-box;
 }
 
-/* Placeholder Message */
 .pdf-placeholder {
   color: #130d0d;
   font-style: italic;
@@ -143,8 +141,6 @@
   cursor: pointer;
 }
 
-
-
 .react-pdf__Page__textContent {
   display: none !important;
 }
@@ -211,7 +207,6 @@
 .modal-buttons .cancel-btn:hover {
   background-color: darkred;
 }
-
 
 /* Success Message */
 .success-overlay {

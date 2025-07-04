@@ -39,7 +39,7 @@ const Dashboard = ({ email }) => {
       <Navbar setSection={setSection} handleLogout={handleLogout} />
 
       {/* ✅ Section Content */}
-      <div className="dashboard-content" style={{ padding: '20px' }}>
+      <div className="dashboard-content" style={{ padding: '15px' }}>
         <h2>Welcome, {email}</h2>
         {renderSection()}
       </div>

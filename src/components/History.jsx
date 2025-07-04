@@ -3,7 +3,7 @@ import '../styles/History.css';
 
 const History = () => {
   const [orders, setOrders] = useState([]);
-  const [sortOrder, setSortOrder] = useState('recent'); // 'recent' or 'older'
+  const [sortOrder, setSortOrder] = useState('recent'); 
 
   useEffect(() => {
     const stored = JSON.parse(localStorage.getItem('simOrders') || '[]');
