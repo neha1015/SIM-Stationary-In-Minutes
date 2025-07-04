@@ -1,5 +1,3 @@
-// src/components/Dashboard.js
-
 import React, { useState } from 'react';
 import Navbar from './Navbar';
 import About from './About';
@@ -30,15 +28,12 @@ const Dashboard = ({ email }) => {
 
   const handleLogout = () => {
     localStorage.removeItem('userEmail');
-    window.location.reload(); // logout and show login page again
+    window.location.reload(); 
   };
 
   return (
     <div>
-      {/* ✅ Navbar: controls page switch and logout */}
       <Navbar setSection={setSection} handleLogout={handleLogout} />
-
-      {/* ✅ Section Content */}
       <div className="dashboard-content" style={{ padding: '15px' }}>
         <h2>Welcome, {email}</h2>
         {renderSection()}
