@@ -16,7 +16,6 @@ const History = () => {
     return sortOrder === 'recent' ? timeB - timeA : timeA - timeB;
   });
 
-  // ✅ Function to format date as dd/mm/yyyy, hh:mm:ss
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);
     const day = String(date.getDate()).padStart(2, '0');
@@ -50,7 +49,7 @@ const History = () => {
           {sortedOrders.map((order, index) => (
             <div key={index} className="order-card">
               <h3>Order #{index + 1}</h3>
-              {/* ✅ Date formatted */}
+              {}
               <p><strong>Date:</strong> {formatDate(order.date)}</p>
 
               {order.files.map((fileSet, idx) => (

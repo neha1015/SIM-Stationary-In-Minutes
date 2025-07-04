@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: space-between;
   background-color: #eff0f5;
-  padding: 6px 24px; /* Reduced top-bottom padding */
+  padding: 6px 24px;
   box-shadow: 0 2px 5px rgba(32, 25, 25, 0.4);
   font-family: Arial, sans-serif;
   height: 65px; 
@@ -53,7 +53,7 @@
   background-color: #e53935;
   color: white;
   border: none;
-  padding: 6px 12px; /* Slightly smaller */
+  padding: 6px 12px; 
   font-weight: bold;
   border-radius: 4px;
   cursor: pointer;

@@ -28,8 +28,8 @@
   flex: 1;
   min-width: 500px;
   max-width: 800px;
-  height: calc(100vh - 150px); /* Fixed height based on viewport */
-  overflow-y: auto; /* Scroll  inside preview  */
+  height: calc(100vh - 150px); 
+  overflow-y: auto; /* inside scroll  */
   background-color: #dee5e0;
   border-radius: 8px;
   padding: 10px;
@@ -100,7 +100,6 @@
   background-color: #0056b3;
 }
 
-/* Saved Files Section */
 .saved-files {
   margin-top: 20px;
   background-color: #eef1f4;
@@ -145,7 +144,6 @@
   display: none !important;
 }
 
-/* Confirm Order Modal */
 .overlay-confirm {
   position: fixed;
   top: 0;
@@ -208,7 +206,6 @@
   background-color: darkred;
 }
 
-/* Success Message */
 .success-overlay {
   position: fixed;
   top: 0;
@@ -237,8 +234,6 @@
   cursor: not-allowed;
 }
 
-
-/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;

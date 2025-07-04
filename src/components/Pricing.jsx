@@ -1,5 +1,3 @@
-// src/components/Pricing.js
-
 import React from 'react';
 
 const Pricing = () => {
