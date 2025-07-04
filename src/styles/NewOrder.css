@@ -2,7 +2,7 @@
   display: flex;
   align-items: flex-start;
   padding: 30px;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 150px);
   background-color: #f8f9fb;
   font-family: "Segoe UI", Tahoma, sans-serif;
 }
@@ -28,7 +28,7 @@
   flex: 1;
   min-width: 500px;
   max-width: 800px;
-  height: calc(100vh - 80px); /* Fixed height based on viewport */
+  height: calc(100vh - 150px); /* Fixed height based on viewport */
   overflow-y: auto; /* Scroll  inside preview  */
   background-color: #dee5e0;
   border-radius: 8px;
@@ -39,7 +39,7 @@
 }
 
 .pdf-placeholder {
-  color: #130d0d;
+  color: #0f0d0d;
   font-style: italic;
   padding: 40px;
   text-align: center;
