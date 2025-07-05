@@ -23,7 +23,8 @@ const Login = ({ onLogin }) => {
     return () => clearInterval(interval);
   }, [timer]);
 
-  const sendOtp = () => {
+  //otp ka setup krna h s so that email pr otp aye
+    const sendOtp = () => {
     const email = emailRef.current?.value.trim();
     if (!email.endsWith('@abes.ac.in')) {
       alert('Please enter your college email (e.g. name@abes.ac.in)');
