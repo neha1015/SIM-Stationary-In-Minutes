@@ -1,5 +1,3 @@
-// src/components/Help.js
-
 import React from 'react';
 
 const Help = () => {
