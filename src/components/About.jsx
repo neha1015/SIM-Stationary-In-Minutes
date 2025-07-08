@@ -21,7 +21,7 @@ const AboutUs = () => {
       </div>
 
       <blockquote className="quote">
-        “Saving students hours every week — that’s the SIM promise.”
+        “Saving students hours every week — that's the SIM promise.”
       </blockquote>
 
       <button className="cta-button">Start Your Order Now →</button>
