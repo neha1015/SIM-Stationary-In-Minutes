@@ -1,14 +1,18 @@
 {
   "name": "sim",
   "private": true,
+  "homepage": "https://neha1015.github.io/SIM-Stationary-In-Minutes",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
-  },
+  "dev": "vite",
+  "build": "vite build",
+  "lint": "eslint .",
+  "preview": "vite preview",
+  "predeploy": "npm run build",
+  "deploy": "gh-pages -d dist"
+},
+
   "dependencies": {
     "pdfjs-dist": "^3.11.174",
     "react": "^19.1.0",
