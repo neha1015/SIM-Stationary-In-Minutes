@@ -33,7 +33,7 @@ const Login = ({ onLogin }) => {
 
     alert(`OTP sent to ${email}`);
     setOtpSent(true);
-    setTimer(30); // 30-second cooldown
+    setTimer(30); 
 
     const updated = [...new Set([email, ...savedEmails])];
     localStorage.setItem('savedEmails', JSON.stringify(updated));
