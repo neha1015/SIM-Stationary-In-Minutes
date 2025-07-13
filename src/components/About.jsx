@@ -5,7 +5,7 @@ const AboutUs = () => {
   return (
     <div className="about-container">
       <h1 className="main-heading">
-         Welcome to <span className="highlighted">Stationary In Minutes</span>
+         Welcome to <span className="highlighted">SIM: Stationary In Minutes</span>
       </h1>
       <p className="subtext">Smart, Quick & Paperless Ordering — just for ABES students</p>
 
