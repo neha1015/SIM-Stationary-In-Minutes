@@ -60,7 +60,8 @@ const Login = ({ onLogin }) => {
     <div className="login-container">
       <div className="overlay">
         <form className="login-form" onSubmit={handleLogin} autoComplete="on">
-        <img src="/simbg.png" alt="SIM Logo" className="login-logo" />
+        {/* <img src="/simbg.png" alt="SIM Logo" className="login-logo" /> */}
+        <img src={`${import.meta.env.BASE_URL}simbg.png`} alt="SIM Logo" className="login-logo" />
 
 
           <h2>Stationary In Minutes</h2>

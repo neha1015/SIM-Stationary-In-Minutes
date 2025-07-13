@@ -12,7 +12,9 @@ const Navbar = ({ setSection, handleLogout }) => {
   return (
     <nav className="navbar">
       <div className="nav-left">
-        <img src="/simbg.png" alt="SIM Logo" className="logo-img" />
+        {/* <img src="/simbg.png" alt="SIM Logo" className="logo-img" /> */}
+        <img src={`${import.meta.env.BASE_URL}simbg.png`} alt="SIM Logo" className="login-logo" />
+
       </div>
 
       <ul className="nav-center">
