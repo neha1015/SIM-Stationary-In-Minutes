@@ -34,7 +34,8 @@ const Dashboard = ({ email }) => {
   return (
     <div>
       <Navbar setSection={setSection} handleLogout={handleLogout} />
-      <div className="dashboard-content" style={{ padding: '15px' }}>
+    <div className="dashboard-content" style={{ padding: '15px', paddingTop: '80px' }}>
+
         <h2>Welcome, {email}</h2>
         {renderSection()}
       </div>
