@@ -259,11 +259,11 @@ const NewOrder = () => {
         </div>
       )}
 
-      {/* {orderPlaced && (
+       {orderPlaced && (
         <div className="success-overlay">
           <div className="success-message">🎉 Order Placed Successfully!</div>
         </div>
-      )} */}
+      )} 
     </div>
   );
 };
